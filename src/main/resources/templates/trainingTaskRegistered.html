@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FMI - project">
+    <meta name="author" content="Lilyana - 61887, Eva - 61940">
+
+    <title>Математика за матура</title>
+
+    <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/css/trainingTaskRegistered.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+
+        <a class="navbar-brand" href="./indexRegistered.html">Математика за матура</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./indexRegistered.html">Начало</a>
+                </li>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./mainRegistered.html">Дялове на математиката<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./noSolutionTasksRegistered.html">Задачи без решения</a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <a class="nav-link" href="#">Потребителско име</a>
+                <a class="nav-link" href="./index.html"><img id="logout" src="../public/images/logoutIcon.png"
+                                                             width="30"
+                                                             height="30"/></a>
+            </form>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<main id="main" role="main">
+
+    <div id="container-subjects">
+
+        <div id="task">
+
+            <h2>Геометрия</h2>
+
+            <h3>Задача 1 - "Много лесни задачи"
+                <div id="timer"><label id="minutes">00</label>:<label id="seconds">00</label></div>
+            </h3>
+
+            <pre>Катетите на правоъгълен триъгълник са с дължини 6cm и 10cm.
+Радиусът на описаната около триъгълника окръжност е: <input type="text" id="answer"/> (с точност: 0.00)</pre>
+
+            <pre id="checkAnswer">Отговорът Ви за задачата е: <span id="correctAnswer">верен</span><span
+                    id="wrongAnswer">грешен</span> <span id="tryAgain">Опитайте отново!</span></pre>
+
+            <hr>
+
+            <pre id="usedTheory">Използвани теоретични познания:
+<select id="theoryOptions">
+  <option></option>
+
+  <option id="sqrEq">Квадратно уравнение</option>
+  <option id="sqrt">Корен</option>
+  <option id="power">Степен</option>
+  <option id="log">Логаритъм</option>
+
+  <option id="perm">Пермутации</option>
+  <option id="vari">Вариации</option>
+  <option id="comb">Комбинации</option>
+  <option id="prob">Вероятност</option>
+
+  <option id="ariProg">Аритметична прогресия</option>
+  <option id="geomProg">Геометрична прогресия</option>
+  <option id="compRate">Формула за сложна лихва</option>
+
+  <option id="pitTh">Питагорова теорема</option>
+  <option id="sinTh">Синусова теорема</option>
+  <option id="cоsTh">Косинусова теорема</option>
+
+  <option id="med">Формула за мадианата</option>
+  <option id="diag">Формула за диагоналите на успоредник</option>
+
+  <option id="trai">Формула за лице на триъгълник</option>
+  <option id="par">Формула за лице на успоредник</option>
+  <option id="rect">Формула за лице на четириъгълник</option>
+  <option id="pol">Формула за лице на описан многоъгълник</option>
+
+  <option id="sin">Синус на сбор/разлика на два ъгъла</option>
+  <option id="cos">Косинус на сбор/разлика на два ъгъла</option>
+  <option id="tg">Тангенс на сбор/разлика на два ъгъла</option>
+  <option id="cotg">Котангенс на сбор/разлика на два ъгъла</option>
+
+  <option id="sin2">Синус на удвоен ъгъл</option>
+  <option id="cos2">Косинус на удвоен ъгъл</option>
+  <option id="tg2">Тангенс на удвоен ъгъл</option>
+  <option id="cotg2">Котангенс на удвоен ъгъл</option>
+
+  <option id="sin2a">Синус квадрат на ъгъл</option>
+  <option id="cos2a">Косинус квадрат на ъгъл</option>
+
+  <option id="sinAdd">Сбор на синуси на два ъгъгла</option>
+  <option id="cosAdd">Сбор на косинуси на два ъгъгла</option>
+  <option id="sinSub">Разлика на синуси на два ъгъгла</option>
+  <option id="cosSub">Разлика на косинуси на два ъгъгла</option>
+  <option id="sinMul">Произведение на синуси на два ъгъгла</option>
+  <option id="cosMul">Произведение на косинуси на два ъгъгла</option>
+  <option id="sinCos">Произведение на синус и косинус на два ъгъгла</option>
+
+</select>
+</pre>
+            <pre id="checkTheory">Отговорът Ви за теорията е: <span id="correctTheory">верен</span><span
+                    id="wrongTheory">грешен</span></pre>
+
+            <pre id="helpTheory">Използвани теоретични познания: <span id="pitTheorem">Питагорова теорема</span></pre>
+
+            <pre id="solution">
+Решение:
+Тъй като триъгълникът е правоъгълен и са дадени дължините на катетите, по Питагоровата теорема се изчислява хипотенузата,
+както следва:
+c<sup>2</sup>=a<sup>2</sup>+b<sup>2</sup>
+c<sup>2</sup>=6<sup>2</sup>+10<sup>2</sup>
+c<sup>2</sup>=36+100
+c<sup>2</sup>=136
+c=&Sqrt;136
+c=11.66
+Радиусът на описана около правоъгълен триъгълник окръжност е половината от дължината на хипотенузата. Следователно:
+R=c/2
+R=11.66/2
+R=5.83
+Отговорът на задачата е: 5.83
+</pre>
+
+            <div class="text-bottom text-left" id="help"><a role="button" class="btn btn-info btn-lg">Помощ<i
+                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+
+            <div class="text-bottom text-left" id="solve"><a role="button" class="btn btn-info btn-lg">Решение<i
+                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+
+            <div class="text-bottom text-right" id="check"><a onclick="result()" role="button"
+                                                              class="btn btn-primary btn-lg">Предаване<i
+                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+
+            <div class="text-bottom text-right" id="retry"><a href="./trainingTaskRegistered.html" role="button"
+                                                              class="btn btn-primary btn-lg">Повторен опит<i
+                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+
+            <div class="text-bottom text-right" id="submit"><a onclick="theory()" role="button"
+                                                               class="btn btn-primary btn-lg">Теория<i
+                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+
+            <div class="text-bottom text-right" id="back"><a href="./mainRegistered.html" role="button"
+                                                             class="btn btn-primary btn-lg">Назад<i
+                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+
+        </div>
+
+    </div>
+
+    <div class="container marketing">
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="../public/images/indexImage1.jpg" alt="Generic placeholder image"
+                     width="140"
+                     height="140">
+                <h2>ДЗИ 2 - Математика</h2>
+                <p>Искаш да се подготвиш добре по математика за матурата? Регистрирай се сега и започни да решаваш
+                    задачи!</p>
+                <p><a class="btn btn-secondary" href="./registrationForm.html" role="button">Детайли &raquo;</a></p>
+            </div>
+
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="../public/images/indexImage2.jpg" alt="Generic placeholder image"
+                     width="140"
+                     height="140">
+                <h2>Първи стъпки</h2>
+                <p>Най-лесният и удобен начин за подготовка е чрез систематично минаване през материала. Именно тук
+                    можеш да откриеш задачите подредени по дялове и трудност!</p>
+                <p><a class="btn btn-secondary" href="./indexRegistered.html" role="button">Детайли &raquo;</a></p>
+            </div>
+
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="../public/images/indexImage3.jpg" alt="Generic placeholder image"
+                     width="140"
+                     height="140">
+                <h2>Главоблъсканици</h2>
+                <p>Секцията "Задачи без решения" предоставя възможност на регистрираните потребители да предизвикват
+                    себе си с малко по интересни задачи по материала.</p>
+                <p><a class="btn btn-secondary" href="./loginForm.html" role="button">Детайли &raquo;</a></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="container">
+        <p class="footerHeading">&copy; 2018-2019 ELLE</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../../../assets/js/vendor/popper.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../../../../assets/js/vendor/holder.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../public/js/trainingTaskRegistered.js"></script>
+
+</main>
+</body>
+</html>
