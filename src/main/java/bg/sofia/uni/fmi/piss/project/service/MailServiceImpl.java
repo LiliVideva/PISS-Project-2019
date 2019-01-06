@@ -1,7 +1,7 @@
-package bg.sofia.uni.fmi.piss.project.service.result;
+package bg.sofia.uni.fmi.piss.project.service;
 
-import bg.sofia.uni.fmi.piss.project.service.BaseService;
-import bg.sofia.uni.fmi.piss.project.service.MailService;
+import bg.sofia.uni.fmi.piss.project.domain.Mail;
+import bg.sofia.uni.fmi.piss.project.service.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,11 @@ public class MailServiceImpl extends BaseService implements MailService {
     private JavaMailSender javaMailSender;
 
     @Override
-    public Result<Void> sendMail(String message, String subject, String receiverEmail) {
+    public Result<Void> sendMail(Mail mail) {
+        String message = mail.getText();
+        String subject = mail.getSubject();
+        String receiverEmail = mail.getReceiver();
+
         MimeMessage mailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mailMessage);
         try {

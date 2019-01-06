@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,18 +60,18 @@
     <div id="container-subjects" class="tab-pane fade in active">
 
         <div class="thumbnail">
+            <form th:action="${/}" th:object="${form}" th:method="post">
+                <h2>Задачи без решения</h2>
 
-            <h2>Задачи без решения</h2>
+                <h3 th:text="${form.title}">Задача 1</h3>
 
-            <h3>Задача 1</h3>
+                <h4>Предложено решение от: "Потребителско име"</h4>
 
-            <h4>Предложено решение от: "Потребителско име"</h4>
-
-            <pre>Условие:
+                <pre th:text="${form.content}">Условие:
 При записване на всичките 17 данни от проведен експеримент се оказало, че числата в подредения статистически ред образуват 
 геометрична прогресия, като най-малкото от тях е 0,03125=2<sup>-5</sup>, а най-голямото е 2048=2<sup>11</sup>. Намерете медианата на тази извадка.</pre>
 
-            <pre>Решение:
+                <pre th:text="${form.solutionContent}">Решение:
 Според данните в условието можем да заключим, че
 n=17
 a<sub>1</sub>=0,03125=2<sup>-5</sup>
@@ -88,18 +88,20 @@ a<sub>9</sub>=a<sub>1</sub>q<sup>9-1</sup>
 a<sub>8</sub>=a<sub>1</sub>q<sup>8</sup>
 a<sub>8</sub>=2<sup>-5</sup>2<sup>8</sup>
 a<sub>8</sub>=2<sup>3</sup>
-a<sub>8</sub>=8
+a<sub>8</sub>=8</pre>
 
-Отговор: 8</pre>
+                <pre th:text="${form.solutionValue}">Отговор: 8</pre>
 
-            <pre>Използвани теоретични познания: Геометрична прогресия</pre>
+                <pre th:id="${form.theoreticalKnowledgeId}">Използвани теоретични познания: Геометрична прогресия</pre>
 
-            <div class="text-bottom text-right" id="decline"><a href="#" role="button" class="btn btn-primary btn-lg">Отхвърляне<i
-                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                <div class="text-bottom text-right" id="decline"><a href="#" role="button"
+                                                                    class="btn btn-primary btn-lg">Отхвърляне<i
+                        class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
 
-            <div class="text-bottom text-right" id="approve"><a href="#" role="button" class="btn btn-primary btn-lg">Добавяне<i
-                    class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-
+                <div class="text-bottom text-right" id="approve"><a href="#" role="button"
+                                                                    class="btn btn-primary btn-lg">Добавяне<i
+                        class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+            </form>
         </div>
 
     </div>

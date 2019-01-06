@@ -1,16 +1,10 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
 import bg.sofia.uni.fmi.piss.project.exception.VerificationException;
-import bg.sofia.uni.fmi.piss.project.security.AuthUser;
 import bg.sofia.uni.fmi.piss.project.service.result.Result;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 public class BaseService {
-
-    static AuthUser getAuthenticatedUser() {
-        return (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
 
     static <T> Result<T> verify(Result<T> result) {
         if (!result.isOk()) {

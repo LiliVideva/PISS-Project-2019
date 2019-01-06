@@ -30,10 +30,6 @@ public class Task {
     private Part part;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "account_id")
-    private Account account;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "theoretical_knowledge_id")
     private TheoreticalKnowledge theoreticalKnowledge;
 
@@ -46,10 +42,6 @@ public class Task {
         this.difficulty = difficulty;
         this.part = part;
         this.theoreticalKnowledge = theoreticalKnowledge;
-    }
-
-    public Task(String title, String content, Difficulty difficulty, Part part) {
-        this(title, content, null, null, difficulty, part, null);
     }
 
     public Long getId() {
@@ -84,10 +76,6 @@ public class Task {
         return theoreticalKnowledge;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -118,10 +106,6 @@ public class Task {
 
     public void setTheoreticalKnowledge(TheoreticalKnowledge theoreticalKnowledge) {
         this.theoreticalKnowledge = theoreticalKnowledge;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     @Override

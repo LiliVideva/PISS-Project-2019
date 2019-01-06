@@ -1,7 +1,6 @@
 package bg.sofia.uni.fmi.piss.project.controller;
 
 import bg.sofia.uni.fmi.piss.project.service.result.Result;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,11 +18,5 @@ public class UiController extends Routes {
 
     String showFormErrors(String path, Object form, BindingResult binding, RedirectAttributes redirect) {
         return showFormErrors(path, null, form, binding, redirect);
-    }
-
-    String showErrorPage(Integer errorCode, String errorMessage, Model model) {
-        model.addAttribute("errorCode", errorCode);
-        model.addAttribute("errorMessage", errorMessage);
-        return "error";
     }
 }

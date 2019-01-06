@@ -86,19 +86,18 @@
 
             <a id="add" href="./addTaskAdmin.html"><img src="../public/images/addIcon.png" width="40" height="40"/></a>
 
-            <div id="algebra">
-                <h3>Алгебра</h3>
+            <div th:each="part : ${partOptions}" th:id="${part.name}">
+                <h3 th:value="${part.name}"></h3>
                 <ul class="nav nav-tabs">
-                    <li><a class="taskType" rel="veryEasy" data-toggle="tab">Много лесни задачи</a></li>
-                    <li><a class="taskType" rel="easy" data-toggle="tab">Лесни задачи</a></li>
-                    <li><a class="taskType" rel="midHard" data-toggle="tab">Средно трудни задачи</a></li>
-                    <li><a class="taskType" rel="hard" data-toggle="tab">Трудни задачи</a></li>
-                    <li><a class="taskType" rel="veryHard" data-toggle="tab">Много трудни задачи</a></li>
+                    <li th:each="difficulty : ${difficultyOptions}">
+                        <a class="taskType" data-toggle="tab" th:rel="${difficulty.name}"
+                           th:value="${difficulty.name}"></a>
+                    </li>
                 </ul>
                 <hr/>
             </div>
 
-            <div id="geometry">
+            <!--<div id="geometry">
                 <h3>Геометрия</h3>
                 <ul class="nav nav-tabs">
                     <li><a class="taskType" rel="veryEasy" data-toggle="tab">Много лесни задачи</a></li>
@@ -144,433 +143,436 @@
                     <li><a class="taskType" rel="veryHard" data-toggle="tab">Много трудни задачи</a></li>
                 </ul>
                 <hr/>
-            </div>
+            </div>-->
 
         </div>
 
         <div id="tasksHardness" class="tab-content">
+            <form th:action="${/}" th:object="${form}" th:method="post">
+                <div th:each="difficulty : ${difficultyOptions}" th:id="${difficulty.name}" class="tab-pane"
+                     th:text="${difficulty.name}">
 
-            <div id="veryEasy" class="tab-pane">
+                    <div class="thumbnail">
 
-                <div class="thumbnail">
+                        <h3 th:text="${form.title}">Задача 1 - "Много лесни задачи"</h3>
 
-                    <h3>Задача 1 - "Много лесни задачи"</h3>
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
 
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i
+                                class="fa fa-arrow-right"
+                                aria-hidden="true"></i></a>
+                        </div>
+
                     </div>
 
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
+                    <!--<div class="thumbnail">
+
+                        <h3>Задача 2 - "Много лесни задачи"</h3>
+
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
+
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
                     </div>
 
-                </div>
+                    <div class="thumbnail">
 
-                <div class="thumbnail">
+                        <h3>Задача 3 - "Много лесни задачи"</h3>
 
-                    <h3>Задача 2 - "Много лесни задачи"</h3>
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
 
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
                     </div>
 
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
+                    <div class="thumbnail">
+
+                        <h3>Задача 4 - "Много лесни задачи"</h3>
+
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
+
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
                     </div>
 
-                </div>
+                    <div class="thumbnail">
 
-                <div class="thumbnail">
+                        <h3>Задача 5 - "Много лесни задачи"</h3>
 
-                    <h3>Задача 3 - "Много лесни задачи"</h3>
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
 
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
 
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 4 - "Много лесни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 5 - "Много лесни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div id="easy" class="tab-pane">
-
-                <div class="thumbnail">
-
-                    <h3>Задача 1 - "Лесни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
                     </div>
 
                 </div>
 
-                <div class="thumbnail">
+                <div id="easy" class="tab-pane">
 
-                    <h3>Задача 2 - "Лесни задачи"</h3>
+                    <div class="thumbnail">
 
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        <h3>Задача 1 - "Лесни задачи"</h3>
+
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
+
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
                     </div>
 
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
+                    <div class="thumbnail">
+
+                        <h3>Задача 2 - "Лесни задачи"</h3>
+
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
+
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
                     </div>
 
+                    <div class="thumbnail">
+
+                        <h3>Задача 3 - "Лесни задачи"</h3>
+
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
+
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
+                    </div>
+
+                    <div class="thumbnail">
+
+                        <h3>Задача 4 - "Лесни задачи"</h3>
+
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
+
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
+                    </div>
+
+                    <div class="thumbnail">
+
+                        <h3>Задача 5 - "Лесни задачи"</h3>
+
+                        <div class="modify">
+                            <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                            <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                        </div>
+
+                        <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                               class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                                  aria-hidden="true"></i></a>
+                        </div>
+
+                    </div>-->
+            </form>
+
+        </div>
+
+        <!--<div id="midHard" class="tab-pane">
+
+            <div class="thumbnail">
+
+                <h3>Задача 1 - "Средно трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
                 </div>
 
-                <div class="thumbnail">
-
-                    <h3>Задача 3 - "Лесни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 4 - "Лесни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 5 - "Лесни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div id="midHard" class="tab-pane">
-
-                <div class="thumbnail">
-
-                    <h3>Задача 1 - "Средно трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 2 - "Средно трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 3 - "Средно трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 4 - "Средно трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 5 - "Средно трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
                 </div>
 
             </div>
 
-            <div id="hard" class="tab-pane">
+            <div class="thumbnail">
 
-                <div class="thumbnail">
+                <h3>Задача 2 - "Средно трудни задачи"</h3>
 
-                    <h3>Задача 1 - "Трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
                 </div>
 
-                <div class="thumbnail">
-
-                    <h3>Задача 2 - "Трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 3 - "Трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 4 - "Трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="thumbnail">
-
-                    <h3>Задача 5 - "Трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
                 </div>
 
             </div>
 
-            <div id="veryHard" class="tab-pane">
+            <div class="thumbnail">
 
-                <div class="thumbnail">
+                <h3>Задача 3 - "Средно трудни задачи"</h3>
 
-                    <h3>Задача 1 - "Много трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
                 </div>
 
-                <div class="thumbnail">
-
-                    <h3>Задача 2 - "Много трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
                 </div>
 
-                <div class="thumbnail">
+            </div>
 
-                    <h3>Задача 3 - "Много трудни задачи"</h3>
+            <div class="thumbnail">
 
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
+                <h3>Задача 4 - "Средно трудни задачи"</h3>
 
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
                 </div>
 
-                <div class="thumbnail">
-
-                    <h3>Задача 4 - "Много трудни задачи"</h3>
-
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
-
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
-
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
                 </div>
 
-                <div class="thumbnail">
+            </div>
 
-                    <h3>Задача 5 - "Много трудни задачи"</h3>
+            <div class="thumbnail">
 
-                    <div class="modify">
-                        <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                        <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
-                    </div>
+                <h3>Задача 5 - "Средно трудни задачи"</h3>
 
-                    <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
-                                                           class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                              aria-hidden="true"></i></a>
-                    </div>
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
 
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
                 </div>
 
             </div>
 
         </div>
+
+        <div id="hard" class="tab-pane">
+
+            <div class="thumbnail">
+
+                <h3>Задача 1 - "Трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 2 - "Трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 3 - "Трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 4 - "Трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 5 - "Трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="veryHard" class="tab-pane">
+
+            <div class="thumbnail">
+
+                <h3>Задача 1 - "Много трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 2 - "Много трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 3 - "Много трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 4 - "Много трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <h3>Задача 5 - "Много трудни задачи"</h3>
+
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
+
+                <div class="text-bottom text-right"><a href="./trainingTaskAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>-->
 
     </div>
 

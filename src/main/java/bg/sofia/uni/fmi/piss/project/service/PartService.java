@@ -6,9 +6,9 @@ import bg.sofia.uni.fmi.piss.project.entity.Part;
 import java.util.List;
 
 public interface PartService {
-    List<Part> list();
-
     Part get(Long id);
+
+    List<Part> list();
 
     List<Option> getPartOptions();
 }

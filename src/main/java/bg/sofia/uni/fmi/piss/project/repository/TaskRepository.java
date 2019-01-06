@@ -6,21 +6,13 @@ import bg.sofia.uni.fmi.piss.project.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    /*List<Task> findByAccount(Account account);
-
-    Task findByTitle(String title);
-
     List<Task> findByPartAndDifficulty(Part part, Difficulty difficulty);
 
-    List<Task> findBySolutionContentIsNull();
+    List<Task> findByPartIsNullAAndDifficultyIsNull();
 
-    List<Task> findByPart(Part part);
-
-    boolean existsByIdAndAccount(Long id, Account account);
-
-    boolean existsByTitle(String title);*/
-
-    boolean existsByPartAndDifficulty(Part part, Difficulty difficulty);
+    boolean existsByTitle(String title);
 }

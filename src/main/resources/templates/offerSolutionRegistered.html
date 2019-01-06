@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,87 +60,90 @@
     <div id="container-subjects" class="tab-pane fade in active">
 
         <div class="task">
-
             <h2>Задачи без решения</h2>
+            <form th:action="${/}" th:object="${form}" th:method="post">
+                <h3 th:text="" ${form.title}>Задача 1</h3>
 
-            <h3>Задача 1</h3>
-
-            <pre>При записване на всичките 17 данни от проведен експеримент се оказало, че числата в подредения статистически ред образуват
+                <pre th:text="${form.content}">При записване на всичките 17 данни от проведен експеримент се оказало, че числата в подредения статистически ред образуват
 геометрична прогресия, като най-малкото от тях е 0,03125=2<sup>-5</sup>, а най-голямото е 2048=2<sup>11</sup>. Намерете медианата на тази извадка.</pre>
 
-            <div class="text-bottom text-right" id="offer"><a role="button" class="btn btn-primary btn-lg">Предложи
-                решение<i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                <div class="text-bottom text-right" id="offer"><a role="button" class="btn btn-primary btn-lg">Предложи
+                    решение<i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
 
-            <div id="sol">
-                <h3>Решение:</h3>
-                <textarea id="solution"></textarea>
+                <div id="sol">
+                    <h3>Решение:</h3>
+                    <textarea id="solution" th:field="${form.solutionContent}"></textarea>
 
-                <h3>Използвани теоретични познания:</h3>
-                <select id="theoryOptions">
+                    <h3>Отговор:</h3>
+                    <textarea id="answer" th:field="${form.solutionValue}"></textarea>
+                    <h3>Използвани теоретични познания:</h3>
+                    <select id="theoryOptions">
 
-                    <option></option>
+                        <option th:each="theory : ${theoryOptions}" th:value="${theory.id}"
+                                th:text="${theory.name}"></option>
 
-                    <option id="sqrEq">Квадратно уравнение</option>
-                    <option id="sqrt">Корен</option>
-                    <option id="power">Степен</option>
-                    <option id="log">Логаритъм</option>
+                        <!--<option id="sqrEq">Квадратно уравнение</option>
+                        <option id="sqrt">Корен</option>
+                        <option id="power">Степен</option>
+                        <option id="log">Логаритъм</option>
 
-                    <option id="perm">Пермутации</option>
-                    <option id="vari">Вариации</option>
-                    <option id="comb">Комбинации</option>
-                    <option id="prob">Вероятност</option>
+                        <option id="perm">Пермутации</option>
+                        <option id="vari">Вариации</option>
+                        <option id="comb">Комбинации</option>
+                        <option id="prob">Вероятност</option>
 
-                    <option id="ariProg">Аритметична прогресия</option>
-                    <option id="geomProg">Геометрична прогресия</option>
-                    <option id="compRate">Формула за сложна лихва</option>
+                        <option id="ariProg">Аритметична прогресия</option>
+                        <option id="geomProg">Геометрична прогресия</option>
+                        <option id="compRate">Формула за сложна лихва</option>
 
-                    <option id="pitTh">Питагорова теорема</option>
-                    <option id="sinTh">Синусова теорема</option>
-                    <option id="cоsTh">Косинусова теорема</option>
+                        <option id="pitTh">Питагорова теорема</option>
+                        <option id="sinTh">Синусова теорема</option>
+                        <option id="cоsTh">Косинусова теорема</option>
 
-                    <option id="med">Формула за мадианата</option>
-                    <option id="diag">Формула за диагоналите на успоредник</option>
+                        <option id="med">Формула за мадианата</option>
+                        <option id="diag">Формула за диагоналите на успоредник</option>
 
-                    <option id="trai">Формула за лице на триъгълник</option>
-                    <option id="par">Формула за лице на успоредник</option>
-                    <option id="rect">Формула за лице на четириъгълник</option>
-                    <option id="pol">Формула за лице на описан многоъгълник</option>
+                        <option id="trai">Формула за лице на триъгълник</option>
+                        <option id="par">Формула за лице на успоредник</option>
+                        <option id="rect">Формула за лице на четириъгълник</option>
+                        <option id="pol">Формула за лице на описан многоъгълник</option>
 
-                    <option id="sin">Синус на сбор/разлика на два ъгъла</option>
-                    <option id="cos">Косинус на сбор/разлика на два ъгъла</option>
-                    <option id="tg">Тангенс на сбор/разлика на два ъгъла</option>
-                    <option id="cotg">Котангенс на сбор/разлика на два ъгъла</option>
+                        <option id="sin">Синус на сбор/разлика на два ъгъла</option>
+                        <option id="cos">Косинус на сбор/разлика на два ъгъла</option>
+                        <option id="tg">Тангенс на сбор/разлика на два ъгъла</option>
+                        <option id="cotg">Котангенс на сбор/разлика на два ъгъла</option>
 
-                    <option id="sin2">Синус на удвоен ъгъл</option>
-                    <option id="cos2">Косинус на удвоен ъгъл</option>
-                    <option id="tg2">Тангенс на удвоен ъгъл</option>
-                    <option id="cotg2">Котангенс на удвоен ъгъл</option>
+                        <option id="sin2">Синус на удвоен ъгъл</option>
+                        <option id="cos2">Косинус на удвоен ъгъл</option>
+                        <option id="tg2">Тангенс на удвоен ъгъл</option>
+                        <option id="cotg2">Котангенс на удвоен ъгъл</option>
 
-                    <option id="sin2a">Синус квадрат на ъгъл</option>
-                    <option id="cos2a">Косинус квадрат на ъгъл</option>
+                        <option id="sin2a">Синус квадрат на ъгъл</option>
+                        <option id="cos2a">Косинус квадрат на ъгъл</option>
 
-                    <option id="sinAdd">Сбор на синуси на два ъгъгла</option>
-                    <option id="cosAdd">Сбор на косинуси на два ъгъгла</option>
-                    <option id="sinSub">Разлика на синуси на два ъгъгла</option>
-                    <option id="cosSub">Разлика на косинуси на два ъгъгла</option>
-                    <option id="sinMul">Произведение на синуси на два ъгъгла</option>
-                    <option id="cosMul">Произведение на косинуси на два ъгъгла</option>
-                    <option id="sinCos">Произведение на синус и косинус на два ъгъгла</option>
+                        <option id="sinAdd">Сбор на синуси на два ъгъгла</option>
+                        <option id="cosAdd">Сбор на косинуси на два ъгъгла</option>
+                        <option id="sinSub">Разлика на синуси на два ъгъгла</option>
+                        <option id="cosSub">Разлика на косинуси на два ъгъгла</option>
+                        <option id="sinMul">Произведение на синуси на два ъгъгла</option>
+                        <option id="cosMul">Произведение на косинуси на два ъгъгла</option>
+                        <option id="sinCos">Произведение на синус и косинус на два ъгъгла</option>-->
 
-                </select>
+                    </select>
 
-                <div class="text-bottom text-right" id="send"><a onclick="offer()" role="button"
-                                                                 class="btn btn-primary btn-lg">Изпрати<i
-                        class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-            </div>
+                    <div class="text-bottom text-right" id="send"><a onclick="offer()" role="button"
+                                                                     class="btn btn-primary btn-lg">Изпрати<i
+                            class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                </div>
 
-            <div id="success">
-                <pre>Решението е изпратено успешно!</pre>
-                <div class="text-bottom text-right" id="back"><a href="./noSolutionTasksRegistered.html" role="button"
-                                                                 class="btn btn-primary btn-lg">Назад<i
-                        class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-            </div>
-
+                <div id="success">
+                    <pre>Решението е изпратено успешно!</pre>
+                    <div class="text-bottom text-right" id="back"><a href="./noSolutionTasksRegistered.html"
+                                                                     role="button"
+                                                                     class="btn btn-primary btn-lg">Назад<i
+                            class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                </div>
+            </form>
         </div>
 
     </div>

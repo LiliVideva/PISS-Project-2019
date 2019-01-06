@@ -2,7 +2,7 @@ package bg.sofia.uni.fmi.piss.project.controller;
 
 public class Routes {
     private static final String REDIRECT = "redirect:";
-    private static final String HOME_PAGE = "/index";
+    private static final String HOME_PAGE = "/index.html";
 
     static String redirect(String path) {
         return REDIRECT + path;

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,27 +60,30 @@
     <h2>Задачи без решения</h2>
 
     <div id="container-subjects">
+        <form th:action="${/}" th:object="tasks" th:method="post">
+            <div class="task" th:each="task : ${tasks}">
 
-        <div class="task">
+                <h3 th:text="${task.title}">Задача 1</h3>
 
-            <h3>Задача 1</h3>
+                <div class="modify">
+                    <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
+                    <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                </div>
 
-            <div class="modify">
-                <a href="#"><img id="edit" src="../public/images/editIcon.jpg" width="40" height="40"/></a>
-                <a href="#"><img id="delete" src="../public/images/deleteIcon.jpg" width="40" height="40"/></a>
+                <div class="text-bottom text-right"><a href="./offerSolutionAdmin.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+                <div class="text-bottom text-right"><a href="./approveSolutionAdmin.html" role="button"
+                                                       class="btn btn-success">Одобри решение<i
+                        class="fa fa-arrow-right"
+                        aria-hidden="true"></i></a>
+                </div>
+
             </div>
+        </form>
 
-            <div class="text-bottom text-right"><a href="./offerSolutionAdmin.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-            <div class="text-bottom text-right"><a href="./approveSolutionAdmin.html" role="button"
-                                                   class="btn btn-success">Одобри решение<i class="fa fa-arrow-right"
-                                                                                            aria-hidden="true"></i></a>
-            </div>
-
-        </div>
-
-        <div class="task">
+        <!--<div class="task">
 
             <h3>Задача 2</h3>
 
@@ -250,7 +253,7 @@
                                                                                             aria-hidden="true"></i></a>
             </div>
 
-        </div>
+        </div>-->
 
     </div>
 

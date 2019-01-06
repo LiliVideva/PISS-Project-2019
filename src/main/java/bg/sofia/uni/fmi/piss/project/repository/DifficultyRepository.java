@@ -6,9 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DifficultyRepository extends JpaRepository<Difficulty, Long> {
-   /* List<Difficulty> findByPart(Part part);
-
-    int countByPart(Part part);
-
-    boolean existsByPart(Part part);*/
 }

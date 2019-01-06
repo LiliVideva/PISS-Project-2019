@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,77 +60,87 @@
     <h2>Задачи без решения</h2>
 
     <div id="container-subjects" class="tab-pane fade in active">
+        <form th:action="${/}" th:object="tasks" th:method="post">
+            <div class="thumbnail" th:each="task : ${tasks}">
+                <h3 class="task" th:text="${task.title}">Задача 1</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 1</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <!--<div class="thumbnail">
+                <h3 class="task">Задача 2</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 2</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <div class="thumbnail">
+                <h3 class="task">Задача 3</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 3</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <div class="thumbnail">
+                <h3 class="task">Задача 4</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 4</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <div class="thumbnail">
+                <h3 class="task">Задача 5</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 5</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <div class="thumbnail">
+                <h3 class="task">Задача 6</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 6</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <div class="thumbnail">
+                <h3 class="task">Задача 7</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 7</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <div class="thumbnail">
+                <h3 class="task">Задача 8</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 8</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
+            <div class="thumbnail">
+                <h3 class="task">Задача 9</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>
 
-        <div class="thumbnail">
-            <h3 class="task">Задача 9</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
-
-        <div class="thumbnail">
-            <h3 class="task">Задача 10</h3>
-            <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
-                                                   class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
-                                                                                      aria-hidden="true"></i></a></div>
-        </div>
-
+            <div class="thumbnail">
+                <h3 class="task">Задача 10</h3>
+                <div class="text-bottom text-right"><a href="./offerSolutionRegistered.html" role="button"
+                                                       class="btn btn-primary">Решаване<i class="fa fa-arrow-right"
+                                                                                          aria-hidden="true"></i></a>
+                </div>
+            </div>-->
+        </form>
     </div>
 
     <div class="container marketing">

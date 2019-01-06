@@ -1,11 +1,10 @@
 package bg.sofia.uni.fmi.piss.project.form;
 
-import bg.sofia.uni.fmi.piss.project.dto.TaskDto;
+import bg.sofia.uni.fmi.piss.project.entity.Task;
 import bg.sofia.uni.fmi.piss.project.util.Constants;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.groups.Default;
 
 public class TaskForm {
 
@@ -25,23 +24,18 @@ public class TaskForm {
 
     private Long difficultyId;
 
-    @NotNull(groups = {Add.class})
     private Long theoreticalKnowledgeId;
-
-    public interface Add extends Default {
-
-    }
 
     public TaskForm() {
 
     }
 
-    public TaskForm(TaskDto details) {
-        this.title = details.getTask().getTitle();
-        this.content = details.getTask().getContent();
-        this.solutionValue = details.getTask().getSolutionValue();
-        this.solutionContent = details.getTask().getSolutionContent();
-        this.theoreticalKnowledgeId = details.getTask().getTheoreticalKnowledge().getId();
+    public TaskForm(Task task) {
+        this.title = task.getTitle();
+        this.content = task.getContent();
+        this.solutionValue = task.getSolutionValue();
+        this.solutionContent = task.getSolutionContent();
+        this.theoreticalKnowledgeId = task.getTheoreticalKnowledge().getId();
     }
 
     public String getTitle() {

@@ -25,10 +25,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<UserRole> userRoles;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "account_id")
-    private Account account;
-
     public Long getId() {
         return id;
     }
@@ -49,10 +45,6 @@ public class User {
         return userRoles;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -71,10 +63,6 @@ public class User {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     @Override
