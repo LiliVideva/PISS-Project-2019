@@ -1,34 +1,37 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
-import bg.sofia.uni.fmi.piss.project.domain.Option;
+import bg.sofia.uni.fmi.piss.project.dto.TheoreticalKnowledgeDto;
 import bg.sofia.uni.fmi.piss.project.entity.TheoreticalKnowledge;
 import bg.sofia.uni.fmi.piss.project.repository.TheoreticalKnowledgeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 @Service
-public class TheoreticalKnowledgeServiceImpl extends BaseService implements TheoreticalKnowledgeService {
+public class TheoreticalKnowledgeServiceImpl implements TheoreticalKnowledgeService {
 
-    @Autowired
-    private TheoreticalKnowledgeRepository theoreticalKnowledgeRepository;
+  @Autowired
+  private TheoreticalKnowledgeRepository theoreticalKnowledgeRepository;
+  @Autowired
+  private TheoreticalKnowledgeAssembler theoreticalKnowledgeAssembler;
 
-    @Override
-    public TheoreticalKnowledge get(Long id) {
-        return theoreticalKnowledgeRepository.findById(id).orElse(null);
+  public ResponseEntity<TheoreticalKnowledgeDto> getTheoreticalKnowledge(Long id) {
+    TheoreticalKnowledge part = theoreticalKnowledgeRepository.findOne(id);
+    if (part == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    public List<TheoreticalKnowledge> list() {
-        return theoreticalKnowledgeRepository.findAll();
-    }
+    return new ResponseEntity<>(theoreticalKnowledgeAssembler.toTheoreticalKnowledgeDto(part), HttpStatus.OK);
+  }
 
-    @Override
-    public List<Option> getTheoreticalKnowledgeOptions() {
-        return theoreticalKnowledgeRepository.findAll().stream().map(theoreticalKnowledge ->
-                new Option(theoreticalKnowledge.getId(), theoreticalKnowledge.getName()))
-                .collect(Collectors.toList());
-    }
+  public ResponseEntity<List<TheoreticalKnowledgeDto>> getAllTheoreticalKnowledges() {
+    List<TheoreticalKnowledge> theory = theoreticalKnowledgeRepository.findAll();
+
+    return new ResponseEntity<>(theory.stream().map(theoreticalKnowledge -> theoreticalKnowledgeAssembler.toTheoreticalKnowledgeDto(theoreticalKnowledge))
+        .sorted(Comparator.comparingLong(TheoreticalKnowledgeDto::getTheoreticalKnowledgeId)).collect(Collectors.toList()), HttpStatus.OK);
+  }
 }

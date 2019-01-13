@@ -1,16 +1,13 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
+import bg.sofia.uni.fmi.piss.project.dto.UserDto;
 import bg.sofia.uni.fmi.piss.project.entity.User;
-import bg.sofia.uni.fmi.piss.project.form.LoginForm;
-import bg.sofia.uni.fmi.piss.project.form.RegisterForm;
-import bg.sofia.uni.fmi.piss.project.service.result.Result;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface UserService {
-    List<User> list();
+  ResponseEntity<UserDto> register(UserDto userDto);
 
-    Result<User> register(RegisterForm registerForm);
+  ResponseEntity login(UserDto userDto);
 
-    Result<User> login(LoginForm loginForm);
+  User getAuthUser();
 }

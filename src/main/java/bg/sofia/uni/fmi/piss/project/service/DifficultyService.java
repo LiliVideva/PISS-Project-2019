@@ -1,15 +1,12 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
-import bg.sofia.uni.fmi.piss.project.domain.Option;
-import bg.sofia.uni.fmi.piss.project.entity.Difficulty;
-
+import bg.sofia.uni.fmi.piss.project.dto.DifficultyDto;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface DifficultyService {
-    Difficulty get(Long id);
-    
-    List<Difficulty> list();
+  ResponseEntity<DifficultyDto> getDifficulty(Long id);
 
-    List<Option> getDifficultyOptions();
+  ResponseEntity<List<DifficultyDto>> getAllDifficultiesByPart(Long partId);
 
 }

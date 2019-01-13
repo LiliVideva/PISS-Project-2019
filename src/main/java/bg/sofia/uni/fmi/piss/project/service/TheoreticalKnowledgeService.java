@@ -1,14 +1,11 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
-import bg.sofia.uni.fmi.piss.project.domain.Option;
-import bg.sofia.uni.fmi.piss.project.entity.TheoreticalKnowledge;
-
+import bg.sofia.uni.fmi.piss.project.dto.TheoreticalKnowledgeDto;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface TheoreticalKnowledgeService {
-    TheoreticalKnowledge get(Long id);
+  ResponseEntity<TheoreticalKnowledgeDto> getTheoreticalKnowledge(Long id);
 
-    List<TheoreticalKnowledge> list();
-
-    List<Option> getTheoreticalKnowledgeOptions();
+  ResponseEntity<List<TheoreticalKnowledgeDto>> getAllTheoreticalKnowledges();
 }

@@ -1,44 +1,46 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
-import bg.sofia.uni.fmi.piss.project.domain.Mail;
-import bg.sofia.uni.fmi.piss.project.service.result.Result;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
-
 @Service
-@PropertySource(value = "classpath:mail.properties")
-public class MailServiceImpl extends BaseService implements MailService {
-    private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
+public class MailServiceImpl implements MailService {
+  final String username = "softuerno15@gmail.com";
+  final String password = "sEngineers2015";
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+  Properties props = new Properties();
 
-    @Override
-    public Result<Void> sendMail(Mail mail) {
-        String message = mail.getText();
-        String subject = mail.getSubject();
-        String receiverEmail = mail.getReceiver();
 
-        MimeMessage mailMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mailMessage);
-        try {
-            helper.setTo(receiverEmail);
-            helper.setSubject(subject);
-            helper.setText(message);
-            javaMailSender.send(mailMessage);
-        } catch (MessagingException e) {
-            logger.error("Error occured while sending email", e);
-            return serverError();
-        }
-        return ok();
+  public void sendEmail(String email, String mess) {
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.starttls.enable", "true");
+    props.put("mail.smtp.socketFactory.port", "587");
+    props.put("mail.smtp.host", "smtp.gmail.com");
+    props.put("mail.smtp.port", "587");
+
+    Session session = Session.getInstance(props,
+        new javax.mail.Authenticator() {
+          protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(username, password);
+          }
+        });
+    Message mimeMessage = new MimeMessage(session);
+
+    try {
+      mimeMessage.setFrom(new InternetAddress(username));
+      mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+      mimeMessage.setSubject("Registration email");
+      mimeMessage.setText(mess);
+      Transport.send(mimeMessage);
+    } catch (MessagingException e) {
+      System.out.println("Problem while sending the email!");
     }
+  }
 }

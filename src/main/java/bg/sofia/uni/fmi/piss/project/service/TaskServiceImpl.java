@@ -1,186 +1,181 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
+import bg.sofia.uni.fmi.piss.project.dto.TaskDto;
 import bg.sofia.uni.fmi.piss.project.entity.Difficulty;
 import bg.sofia.uni.fmi.piss.project.entity.Part;
 import bg.sofia.uni.fmi.piss.project.entity.Task;
 import bg.sofia.uni.fmi.piss.project.entity.TheoreticalKnowledge;
-import bg.sofia.uni.fmi.piss.project.form.TaskForm;
 import bg.sofia.uni.fmi.piss.project.repository.DifficultyRepository;
 import bg.sofia.uni.fmi.piss.project.repository.PartRepository;
 import bg.sofia.uni.fmi.piss.project.repository.TaskRepository;
 import bg.sofia.uni.fmi.piss.project.repository.TheoreticalKnowledgeRepository;
-import bg.sofia.uni.fmi.piss.project.service.result.Result;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
-public class TaskServiceImpl extends BaseService implements TaskService {
+public class TaskServiceImpl implements TaskService {
 
-    @Autowired
-    private DifficultyRepository difficultyRepository;
+  @Autowired
+  private DifficultyRepository difficultyRepository;
 
-    @Autowired
-    private PartRepository partRepository;
+  @Autowired
+  private PartRepository partRepository;
 
-    @Autowired
-    private TheoreticalKnowledgeRepository theoreticalKnowledgeRepository;
+  @Autowired
+  private TheoreticalKnowledgeRepository theoreticalKnowledgeRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
+  @Autowired
+  private TaskRepository taskRepository;
 
-    private List<Task> offeredTasks = new ArrayList<>();
+  @Autowired
+  private TaskAssembler taskAssembler;
 
-    @Override
-    public Result<Task> getDetails(Long id) {
-        Task task = taskRepository.findById(id).orElse(null);
-        if (task == null) {
-            return notFound();
-        }
-        return ok(task);
+  private List<Task> offeredTasks = new ArrayList<>();
+
+  @Override
+  public ResponseEntity<TaskDto> getDetails(Long id) {
+    Task task = taskRepository.findOne(id);
+    if (task == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    public Result<Task> getOfferedTaskDetails(Long id) {
-        return offeredTasks.isEmpty() ? badRequest()
-                : ok(offeredTasks.stream().filter(task -> task.getId() == id).findFirst().get());
+    return new ResponseEntity<>(taskAssembler.toTaskDto(task), HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<TaskDto> getOfferedTaskDetails(Long id) {
+    return offeredTasks.isEmpty() ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        : new ResponseEntity<>(taskAssembler.toTaskDto(offeredTasks.stream().filter(task -> task.getId() == id).findFirst().get()),
+        HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<List<TaskDto>> getAllTasksByPartAndDifficulty(Long partId, Long difficultyId) {
+    Difficulty difficulty = difficultyRepository.findOne(difficultyId);
+    Part part = partRepository.findOne(partId);
+
+    if (difficulty == null || part == null) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @Override
-    public List<Task> list(Long difficultyId) {
-        Difficulty difficulty = difficultyRepository.findById(difficultyId).orElse(null);
-
-        if (difficulty != null) {
-            return taskRepository.findByPartAndDifficulty(difficulty.getPart(), difficulty);
-        }
-
-        return Collections.emptyList();
+    List<Task> tasks = taskRepository.findByPartAndDifficulty(part, difficulty);
+    if (tasks.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    public List<Task> list() {
-        return taskRepository.findByPartIsNullAAndDifficultyIsNull();
+    return new ResponseEntity<>(tasks.stream().map(task -> taskAssembler.toTaskDto(task)).sorted(Comparator
+        .comparingLong(TaskDto::getTaskId)).collect(Collectors.toList()), HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<List<TaskDto>> getAllTasks() {
+    List<Task> tasks = taskRepository.findByPartIsNullAndDifficultyIsNull();
+    if (tasks.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(tasks.stream().map(task -> taskAssembler.toTaskDto(task)).sorted(Comparator
+        .comparingLong(TaskDto::getTaskId)).collect(Collectors.toList()), HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<TaskDto> add(TaskDto taskDto) {
+    String title = taskDto.getTitle();
+    Part part = partRepository.findOne(taskDto.getPartId());
+    Long difficultyId = (taskDto.getPartId() == 0 ? 0 : (taskDto.getPartId() - 1) * 5 + taskDto.getDifficultyId());
+    Difficulty difficulty = difficultyRepository.findOne(difficultyId);
+
+    if (taskRepository.existsByTitle(title)) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @Override
-    public Result<Task> add(Long taskId, TaskForm form) {
-        String title = form.getTitle();
-        Difficulty difficulty = difficultyRepository.findById(form.getDifficultyId()).orElse(null);
-        Part part = partRepository.findById(form.getPartId()).orElse(null);
+    Task task = new Task(title, taskDto.getContent(), taskDto.getSolutionValue(), taskDto.getSolutionContent(),
+        difficulty, part, theoreticalKnowledgeRepository.findOne(taskDto.getTheoreticalKnowledgeId()));
 
-        if (taskRepository.existsByTitle(title)) {
-            return badRequest("name", "error.name.exists");
-        }
+    save(task);
 
-        Task task = new Task(title, form.getContent(), form.getSolutionValue(), form.getSolutionContent(),
-                difficulty, part, theoreticalKnowledgeRepository.findById(form.getTheoreticalKnowledgeId()).orElse(null));
+    return new ResponseEntity<>(taskAssembler.toTaskDto(task), HttpStatus.CREATED);
+  }
 
-        verify(save(task));
-
-        return created(task);
+  @Override
+  public ResponseEntity<TaskDto> update(Long id, TaskDto taskDto) {
+    Task task = taskRepository.findOne(id);
+    if (task == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    String title = taskDto.getTitle();
+    if (isBlank(title)) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @Override
-    public Result<Task> update(Long id, TaskForm form) {
-        Task task = taskRepository.findById(id).orElse(null);
-        if (task == null) {
-            return notFound();
-        }
-        String title = form.getTitle();
-        if (isBlank(title)) {
-            return badRequest();
-        }
+    task.setContent(taskDto.getContent());
+    task.setSolutionValue(taskDto.getSolutionValue());
+    task.setSolutionContent(taskDto.getSolutionContent());
+    task.setTheoreticalKnowledge(theoreticalKnowledgeRepository.findOne(taskDto.getTheoreticalKnowledgeId()));
 
-        task.setContent(form.getContent());
-        task.setSolutionValue(form.getSolutionValue());
-        task.setSolutionContent(form.getSolutionContent());
-        task.setTheoreticalKnowledge(theoreticalKnowledgeRepository.findById(form.getTheoreticalKnowledgeId()).orElse(null));
+    save(task);
 
-        verify(save(task));
+    return new ResponseEntity<>(taskAssembler.toTaskDto(task), HttpStatus.OK);
+  }
 
-        return ok(task);
+  @Override
+  public ResponseEntity<Void> delete(Long id) {
+    Task task = taskRepository.findOne(id);
+    if (task == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    public Result<Void> delete(Long id) {
-        Task task = taskRepository.findById(id).orElse(null);
-        if (task == null) {
-            return notFound();
-        }
+    taskRepository.delete(task);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
 
-        taskRepository.delete(task);
-        return noContent();
-    }
-
-    @Override
-    public Result<Task> solve(Long id, TaskForm form) {
-        Task task = taskRepository.findById(id).orElse(null);
-        if (task == null) {
-            return notFound();
-        }
-
-        String title = form.getTitle();
-        if (isBlank(title) || isBlank(form.getSolutionValue()) || isBlank(form.getSolutionContent())) {
-            return badRequest();
-        }
-
-        task.setContent(form.getContent());
-        task.setSolutionValue(form.getSolutionValue());
-        task.setSolutionContent(form.getSolutionContent());
-        task.setDifficulty(difficultyRepository.findById(form.getDifficultyId()).orElse(null));
-        task.setPart(partRepository.findById(form.getPartId()).orElse(null));
-        task.setTheoreticalKnowledge(theoreticalKnowledgeRepository.findById(form.getTheoreticalKnowledgeId()).orElse(null));
-
-        verify(save(task));
-
-        return ok(task);
-    }
-
-    @Override
-    public Result<Void> offer(Long id, TaskForm form) {
-        TheoreticalKnowledge theoreticalKnowledge = theoreticalKnowledgeRepository.findById(form.getTheoreticalKnowledgeId())
-                .orElse(null);
-        if (isBlank(form.getSolutionValue()) || isBlank(form.getSolutionContent()) || theoreticalKnowledge == null) {
-            return badRequest();
-        }
-
-
-        Task offeredTask = new Task(form.getTitle(), form.getContent(), form.getSolutionValue(), form.getSolutionContent(),
-                null, null, theoreticalKnowledge);
-        offeredTasks.add(offeredTask);
-        return noContent();
-    }
-
-    @Override
-    public Result<Task> approve(Long id, TaskForm form) {
-        String title = form.getTitle();
-        Difficulty difficulty = difficultyRepository.findById(form.getDifficultyId()).orElse(null);
-        Part part = partRepository.findById(form.getPartId()).orElse(null);
-
-        if (taskRepository.existsByTitle(title)) {
-            return badRequest("name", "error.name.exists");
-        }
-
-        Task task = new Task(title, form.getContent(), form.getSolutionValue(), form.getSolutionContent(),
-                difficulty, part, theoreticalKnowledgeRepository.findById(form.getTheoreticalKnowledgeId()).orElse(null));
-
-        verify(save(task));
-        offeredTasks.remove(task);
-
-        return created(task);
+  @Override
+  public ResponseEntity<Void> offer(Long id, TaskDto taskDto) {
+    TheoreticalKnowledge theoreticalKnowledge = theoreticalKnowledgeRepository.findOne(taskDto.getTheoreticalKnowledgeId());
+    if (isBlank(taskDto.getSolutionValue()) || isBlank(taskDto.getSolutionContent()) || theoreticalKnowledge == null) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 
-    private Result<Task> save(Task task) {
-        if (task.getPart() == null || task.getTitle() == null || task.getContent() == null) {
-            return badRequest();
-        }
-        return ok(taskRepository.save(task));
+    Task offeredTask = new Task(taskDto.getTitle(), taskDto.getContent(), taskDto.getSolutionValue(), taskDto.getSolutionContent(),
+        null, null, theoreticalKnowledge);
+    offeredTasks.add(offeredTask);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  @Override
+  public ResponseEntity<TaskDto> approve(Long id, TaskDto taskDto) {
+    String title = taskDto.getTitle();
+    Difficulty difficulty = difficultyRepository.findOne(taskDto.getDifficultyId());
+    Part part = partRepository.findOne(taskDto.getPartId());
+
+    if (taskRepository.existsByTitle(title)) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    Task task = new Task(title, taskDto.getContent(), taskDto.getSolutionValue(), taskDto.getSolutionContent(),
+        difficulty, part, theoreticalKnowledgeRepository.findOne(taskDto.getTheoreticalKnowledgeId()));
+
+    save(task);
+    offeredTasks.remove(task);
+
+    return new ResponseEntity<>(taskAssembler.toTaskDto(task), HttpStatus.CREATED);
+  }
+
+
+  private ResponseEntity<TaskDto> save(Task task) {
+    if (task.getTitle() == null || task.getContent() == null) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(taskAssembler.toTaskDto(taskRepository.save(task)), HttpStatus.OK);
+  }
 
 }

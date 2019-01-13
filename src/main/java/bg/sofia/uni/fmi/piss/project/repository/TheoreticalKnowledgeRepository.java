@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TheoreticalKnowledgeRepository extends JpaRepository<TheoreticalKnowledge, Long> {
+  TheoreticalKnowledge findByName(String name);
 }

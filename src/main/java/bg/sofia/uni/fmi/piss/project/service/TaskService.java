@@ -1,29 +1,25 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
-import bg.sofia.uni.fmi.piss.project.entity.Task;
-import bg.sofia.uni.fmi.piss.project.form.TaskForm;
-import bg.sofia.uni.fmi.piss.project.service.result.Result;
-
+import bg.sofia.uni.fmi.piss.project.dto.TaskDto;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface TaskService {
-    Result<Task> getDetails(Long id);
+  ResponseEntity<TaskDto> getDetails(Long id);
 
-    Result<Task> getOfferedTaskDetails(Long id);
+  ResponseEntity<TaskDto> getOfferedTaskDetails(Long id);
 
-    List<Task> list(Long difficultyId);
+  ResponseEntity<List<TaskDto>> getAllTasksByPartAndDifficulty(Long partId, Long difficultyId);
 
-    List<Task> list();
+  ResponseEntity<List<TaskDto>> getAllTasks();
 
-    Result<Task> add(Long taskId, TaskForm form);
+  ResponseEntity<TaskDto> add(TaskDto taskDto);
 
-    Result<Task> update(Long id, TaskForm form);
+  ResponseEntity<TaskDto> update(Long id, TaskDto taskDto);
 
-    Result<Void> delete(Long id);
+  ResponseEntity<Void> delete(Long id);
 
-    Result<Task> solve(Long id, TaskForm form);
+  ResponseEntity<Void> offer(Long id, TaskDto taskDto);
 
-    Result<Void> offer(Long id, TaskForm form);
-
-    Result<Task> approve(Long id, TaskForm form);
+  ResponseEntity<TaskDto> approve(Long id, TaskDto taskDto);
 }

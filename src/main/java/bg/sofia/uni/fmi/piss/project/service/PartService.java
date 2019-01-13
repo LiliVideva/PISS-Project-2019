@@ -1,14 +1,11 @@
 package bg.sofia.uni.fmi.piss.project.service;
 
-import bg.sofia.uni.fmi.piss.project.domain.Option;
-import bg.sofia.uni.fmi.piss.project.entity.Part;
-
+import bg.sofia.uni.fmi.piss.project.dto.PartDto;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface PartService {
-    Part get(Long id);
+  ResponseEntity<PartDto> getPart(Long id);
 
-    List<Part> list();
-
-    List<Option> getPartOptions();
+  ResponseEntity<List<PartDto>> getAllParts();
 }
